@@ -1,0 +1,70 @@
+<!Doctype hmtl>
+<html>
+<head>
+  <title>API Documentation - args</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="../../css/args-stylesheet.css" rel="stylesheet"/>
+  <link rel="icon" href="../../img/args-logo.png" type="image/png"/>
+</head>
+<body>
+  <header id="results_header">
+    <a href="../../.."><h1 id="logo">args</h1></a>
+    <img src="../../img/args-logo.png" id="logoImgR"/>
+  </header>
+
+  <div id="text_container">
+    <h1 class="headingdoc">API</h1>
+    <hr>
+    <div class="text-indenting">
+      <div class="paragraph">
+        <h2 class="html-heading">API Documentation</h2>
+        <p>Args exposes its search interface via a REST API which you can use in
+          your own software to query search results programmatically.</p>
+
+          <h2  class="html-heading">API Basics</h2>
+          <p>Access via: <a href="http://141.54.172.105:8081/api/v1/_search?query=GOOGLE">http://141.54.172.105:8081/api/v1/_search?query=GOOGLE</a></p>
+          <ul class="api-list">
+            <li><span id="list-content">Use double quotes <span class="highlighter">("")</span> for phrase queries</span></li>
+            <li><span id="list-content">Use plus signs <span class="highlighter">(+)</span> between words to form multiple-word queries</span></li>
+            <li><span id="list-content">Use ampersands <span class="highlighter">(&)</span> to add additional parameters to your query</span></li>
+            <li><span id="list-content">The API will show the first 100 results by default. To specify please use our additional parameters <span class="highlighter">"from"</span> and <span class="highlighter">"to"</span></span></li>
+            <li><span id="list-content">Please note that the API will not output more than 100 arguments at all times</span></li>
+          </ul>
+
+          <h2 class="html-heading">Additional parameters:</h2>
+          <ul class="api-list">
+            <li><span class="highlighter">pretty</span></li>
+            <ul>
+              <li><span id="list-content"><span class="highlighter">/!\</span>For a readable output the <span class="highlighter">&pretty</span> parameter is highly recommended.</span></li>
+            </ul>
+            <li><span class="highlighter">from=ARGUMENT_POSITION</span></li>
+            <ul>
+              <li><span id="list-content">ARGUMENT_POSITION needs to be a positive integer value</span></li>
+              <li><span id="list-content">If not specified the default value will be 0</span></li>
+            </ul>
+            <li><span class="highlighter">to=ARGUMENT_POSITION</span></li>
+            <ul>
+              <li><span id="list-content">ARGUMENT_POSITION needs to be a positive integer value</span></li>
+              <li><span id="list-content">Default will be FROM_VALUE + 100</span></li>
+            </ul>
+          </ul>
+          Example: <a href="http://141.54.172.105:8081/api/v1/_search?query=GOOGLE&pretty&from=5&to=15">http://141.54.172.105:8081/api/v1/_search?query=GOOGLE&pretty&from=5&to=15</a>
+        </div>
+      </div>
+      <a href="../../..">&laquo; Main page</a>
+    </div>
+
+    <footer>
+      <div class="footer-wrapper">
+        <li class="float-left"><a href="args-help.html">Help</a></li>
+        <li class="float-left"><a href="args-terms.html">Terms</a></li>
+        <li class="float-left"><a href="args-privacy.html">Privacy</a></li>
+        <li class="float-left"><a href="args-api.html">API</a></li>
+        <li class="float-right"><a href="https://www.uni-weimar.de/en/media/chairs/computer-science-and-media/webis/home/">© 2017 Webis</a></li>
+        <li class="float-right"><a href="args-about.html">About</a></li>
+      </div>
+    </footer>
+
+  </body>
+  </html>

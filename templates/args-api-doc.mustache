@@ -1,0 +1,41 @@
+<!Doctype hmtl>
+<head>
+  <title>API Documentation</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="../static/css/args-stylesheet.css" rel="stylesheet" />
+</head>
+<style>
+  p {margin-left: 50px;}
+  li {margin-left:40px;}
+</style>
+<body>
+  <header id="results_header">
+    <a href="#"><h1 id="logo">args</h1></a>
+  </header>
+
+  <h2>API Documentation</h2>
+  <p>Args exposes its search interface via a REST API which you can use in
+     your own software to query search results programmatically.</p>
+
+  <h2>API Basics</h2>
+  <p>Access via: IP:Port/api/v1/_search?query=SAMPLEQUERY</p>
+  <p>http://141.54.159.138:8081/api/v1/_search?query=EXAMPLE&pretty</p>
+  <p>Use double quotes ("") for phrase queries</p>
+  <p>Use plus (+) to form multiple-word queries</p>
+  <p>Additional parameters:
+    <ul>
+      <li>pretty</li>
+      <li>from=VALUE</li>
+      <li>to=VALUE</li>
+    </ul>
+  </p>
+  <p>VALUE can be number 0 to Number of Arguments available, lower 0 returns from 0, higher than number of arguments returns nothing</p> 
+  <p>Use ampersand (&) to add additional parameters after query</p>
+  <p>/!\ The &pretty is highly recommended. It makes the output readeable.<br>
+  Currently Firefox is creating some trouble, for correct results use Google Chrome or Safari.</p>
+
+
+  {{> args-footer}}
+</body>
+</html>

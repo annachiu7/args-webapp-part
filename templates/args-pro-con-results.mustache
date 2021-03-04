@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{searchQuery}} - Argument Search - args</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	{{> args-head}}
+	<!--<link rel="stylesheet" type="text/css" href="../css/args-stylesheet.css">-->
+</head>
+<body id="results_page">
+	<header id="results_header">
+		<a href="../..">
+			<h1 id="logo">args</h1>
+			<img src="{{contextPath}}/static/img/args-logo.png" id="logoImgR"/>
+		</a>
+		<div id="search_bar_wrapper">
+			<div id="search_bar_container">
+				<div id="search_icon">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
+						<path fill="#808080" d="M21.7,20.3l-1.4,1.4l-5.4-5.4c-1.3,1-3,1.7-4.9,1.7 c-4.4,0-8-3.6-8-8c0-4.4,3.6-8,8-8c4.4,0,8,3.6,8,8c0,1.8-0.6,3.5-1.7,4.9L21.7,20.3z M10,4c-3.3,0-6,2.7-6,6s2.7,6,6,6s6-2.7,6-6 S13.3,4,10,4z"/>
+					</svg>
+				</div>
+				<form role="search" method="get">
+					<input type="text" id="search_input" placeholder="Enter a controversial topic" formmethod="get" name="q" value="{{searchQuery}}"/>
+					<button type="submit" class="btn btn-primary input-lg">
+						<svg xmlns="http://www.w3.org/2000/svg" width="18" height="20" viewBox="0 0 32 32">
+							<path d="M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111  C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587  c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z" fill="#808080"/>
+						</svg>
+					</button>
+				</form>
+			</div>
+		</div>
+	</header>
+		{{#view}}
+		<div class="wrapper result_body">
+			<div class="container">
+				<aside>
+					<p>Page {{currentpage}} of {{paginationInfo.numResults}} arguments, {{proResults}} pro, {{conResults}} con (retrieved in {{queryTime}})</p>
+					<span><a href="{{pageUrl}}?q={{{searchQueryUrlEnc}}}&p={{pageNumber}}{{#isExplainMode}}&explain{{/isExplainMode}}{{#indicesUrlEnc}}&index={{.}}{{/indicesUrlEnc}}&v=procon">Pro vs. Con View</a> |
+					<a href="{{pageUrl}}?q={{{searchQueryUrlEnc}}}&p={{pageNumber}}{{#isExplainMode}}&explain{{/isExplainMode}}{{#indicesUrlEnc}}&index={{.}}{{/indicesUrlEnc}}&v=overall">Overall Ranking View</a></span>
+				</aside>
+				<section class="pro">
+					<h2>Pro</h2>
+					{{#searchResults}}
+					{{#stance}}
+					<article id="proArticle">
+						<a href="{{url}}"><h3 class="title">{{&title}}</h3></a>
+						<a class="source_url" href="{{url}}">{{urlSnippet}}</a>
+						<p class="snippet">
+							{{&premise}}
+							<img class="button expand" src="{{contextPath}}/static/img/expand.png"
+							onclick="toggleExpand(event)">
+							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-{{id}}">score</button>
+						</p>
+						<p class="premise hide">
+							{{&wholePremise}}
+						</p>
+						<br>
+						<p class = "hide conclusion">
+							Supported conclusion: {{&conclusion}}
+							<img class="button hide shrink" src="{{contextPath}}/static/img/shrink.png"
+							onclick="toggleExpand(event)">
+							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-{{id}}">score</button>
+						</p>
+						{{> args-explanation-modal}}
+					</article>
+					{{/stance}}
+					{{/searchResults}}
+					{{#noMoreProResults}}
+					<div id="noArg">No more pro results to be shown.</div>
+					{{/noMoreProResults}}
+				</section>
+				<div id="sections_splitter"></div>
+				<section class="con">
+					<h2>Con</h2>
+					{{#searchResults}}
+					{{^stance}}
+					<article id="conArticle">
+						<a href="{{url}}"><h3 class="title">{{&title}}</h3></a>
+						<a class="source_url" href="{{url}}">{{urlSnippet}}</a>
+						<p class="snippet">
+							{{&premise}}
+							<img class="button expand" src="{{contextPath}}/static/img/expand.png"
+							onclick="toggleExpand(event)">
+							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-{{id}}">score</button>
+						</p>
+						<p class="premise hide">
+							{{&wholePremise}}
+						</p>
+						<br>
+						<p class = "hide conclusion">
+							Attacked conclusion: {{&conclusion}}
+							<img class="button hide shrink" src="{{contextPath}}/static/img/shrink.png"
+							onclick="toggleExpand(event)">
+							<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-{{id}}">score</button>
+						</p>
+						{{> args-explanation-modal}}
+					</article>
+					{{/stance}}
+					{{/searchResults}}
+					{{#noMoreConResults}}
+					<div id="noArg">No more con results to be shown.</div>
+					{{/noMoreConResults}}
+				</section>
+			</div>
+		</div>
+		{{/view}}
+		{{^view}}
+		<div class="wrapper result_body">
+			<div class="container">
+				<aside>
+					<p>Page {{currentpage}} of {{paginationInfo.numResults}} arguments (retrieved in {{queryTime}})</p>
+					<span><a href="{{pageUrl}}?q={{{searchQueryUrlEnc}}}&p={{pageNumber}}{{#isExplainMode}}&explain{{/isExplainMode}}{{#indicesUrlEnc}}&index={{.}}{{/indicesUrlEnc}}&v=procon">Pro vs. Con View</a> |
+						<a href="{{pageUrl}}?q={{{searchQueryUrlEnc}}}&p={{pageNumber}}{{#isExplainMode}}&explain{{/isExplainMode}}{{#indicesUrlEnc}}&index={{.}}{{/indicesUrlEnc}}&v=overall">Overall Ranking View</a></span>
+					</aside>
+					<section class="overall_section">
+							{{#searchResults}}
+							<!--<div id="articleContainer">-->
+							<div class="stance">
+								{{#stance}}<span id="stancePro">pro</span>{{/stance}}
+								{{^stance}}<span id="stanceCon">con</span>{{/stance}}
+							</div>
+							<div id="articleContainer">
+							<article id={{#stance}}"proArticle"{{/stance}}{{^stance}}"conArticle"{{/stance}}>
+								<a href="{{url}}"><h3 class="title">{{&title}}</h3></a>
+								<a class="source_url" href="{{url}}">{{url}}</a>
+								<p class="snippet">
+									{{&premise}}
+									<img class="button expand" src="{{contextPath}}/static/img/expand.png"
+									onclick="toggleExpand(event)">
+									<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-{{id}}">score</button>
+								</p>
+								<p class="premise hide">
+									{{&wholePremise}}
+								</p>
+								<br>
+								<p class = "hide conclusion">
+									{{#stance}}Supported conclusion: {{/stance}}
+									{{^stance}}Attacked conclusion: {{/stance}}
+									{{&conclusion}}
+									<img class="button hide shrink" src="{{contextPath}}/static/img/shrink.png"
+									onclick="toggleExpand(event)">
+									<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#modal-{{id}}">score</button>
+								</p>
+								{{> args-explanation-modal}}
+							</article>
+							</div>
+							{{/searchResults}}
+							{{^searchResults}}
+								<div id="noArg_overall">No Arguments found!</div>
+							{{/searchResults}}
+							<!--</div>-->
+						</section>
+					</div>
+				</div>
+				{{/view}}
+				<div class="pagination-container">
+					<ul class="pagination">
+						{{#pagination}}
+						<li{{#active}} class="active"{{/active}}>
+						<a href="{{pageUrl}}?q={{{searchQueryUrlEnc}}}&p={{pageNumber}}{{#isExplainMode}}&explain{{/isExplainMode}}{{#indicesUrlEnc}}&index={{.}}{{/indicesUrlEnc}}" {{#hiddenLabel}} title="{{hiddenLabel}}"{{/hiddenLabel}}>
+							{{label}}{{#ariaHiddenLabel}} <span aria-hidden="true">{{ariaHiddenLabel}}</span>{{/ariaHiddenLabel}}
+							{{#hiddenLabel}} <span class="sr-only">{{hiddenLabel}}</span>{{/hiddenLabel}}
+						</a>
+					</li>
+					{{/pagination}}
+				</ul>
+			</div>
+			{{> args-footer}}
+		</body>
+		</html>
